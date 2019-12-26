@@ -1,0 +1,24 @@
+import { r as registerInstance, h } from './core-5a169df5.js';
+function format(first, middle, last) {
+    return ((first || '') +
+        (middle ? " " + middle : '') +
+        (last ? " " + last : ''));
+}
+var DatePicker = /** @class */ (function () {
+    function DatePicker(hostRef) {
+        registerInstance(this, hostRef);
+    }
+    DatePicker.prototype.getText = function () {
+        return format(this.first, this.middle, this.last);
+    };
+    DatePicker.prototype.render = function () {
+        return h("div", null, "Hello, World! I'm ", this.getText());
+    };
+    Object.defineProperty(DatePicker, "style", {
+        get: function () { return "STYLE_TEXT_PLACEHOLDER:date-picker"; },
+        enumerable: true,
+        configurable: true
+    });
+    return DatePicker;
+}());
+export { DatePicker as date_picker };

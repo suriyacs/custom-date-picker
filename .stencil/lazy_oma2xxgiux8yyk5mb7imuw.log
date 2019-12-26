@@ -1,0 +1,67 @@
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { Host, h } from "@stencil/core";
+export const Calendar = class {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+        this.oneDay = 60 * 60 * 24 * 1000;
+        this.todayTimestamp = Date.now() - (Date.now() % this.oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
+        this.daysMap = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        this.monthMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        this.getDayDetails = args => {
+            let date = args.index - args.firstDay;
+            let day = args.index % 7;
+            let prevMonth = args.month - 1;
+            let prevYear = args.year;
+            if (prevMonth < 0) {
+                prevMonth = 11;
+                prevYear--;
+            }
+            let prevMonthNumberOfDays = this.getNumberOfDays(prevYear, prevMonth);
+            let _date = (date < 0 ? prevMonthNumberOfDays + date : date % args.numberOfDays) + 1;
+            let month = date < 0 ? -1 : date >= args.numberOfDays ? 1 : 0;
+            let timestamp = new Date(args.year, args.month, _date).getTime();
+            return {
+                date: _date,
+                day,
+                month,
+                timestamp,
+                dayString: this.daysMap[day]
+            };
+        };
+        let date = new Date();
+        this.year = date.getFullYear();
+        this.month = date.getMonth();
+        this.selectedDay = this.todayTimestamp;
+        this.monthDetails = this.getMonthDetails(this.year, this.month);
+    }
+    getMonthDetails(year, month) {
+        let firstDay = (new Date(year, month)).getDay();
+        let numberOfDays = this.getNumberOfDays(year, month);
+        let monthArray = [];
+        let rows = 6;
+        let currentDay = null;
+        let index = 0;
+        let cols = 7;
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                currentDay = this.getDayDetails({
+                    index,
+                    numberOfDays,
+                    firstDay,
+                    year,
+                    month
+                });
+                monthArray.push(currentDay);
+                index++;
+            }
+        }
+        return monthArray;
+    }
+    getNumberOfDays(year, month) {
+        return 40 - new Date(year, month, 40).getDate();
+    }
+    render() {
+        return (h(Host, null, h("div", { class: "mdp-container" }, "date-picker shown")));
+    }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:date-calendar"; }
+};

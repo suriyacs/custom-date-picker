@@ -1,0 +1,4 @@
+import { p as patchBrowser, b as bootstrapLazy } from './core-5a169df5.js';
+patchBrowser().then(function (options) {
+    return bootstrapLazy([["date-picker", [[1, "date-picker", { "first": [1], "middle": [1], "last": [1] }]]]], options);
+});

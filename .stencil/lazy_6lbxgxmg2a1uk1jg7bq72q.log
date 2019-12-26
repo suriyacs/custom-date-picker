@@ -1,0 +1,13 @@
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { Host, h } from "@stencil/core";
+export const Calendar = class {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+        this.oneDay = 60 * 60 * 24 * 1000;
+        this.todayTimestamp = Date.now() - (Date.now() % this.oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
+    }
+    render() {
+        return (h(Host, null, h("div", { class: "mdp-container" }, "date-picker shown")));
+    }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:date-calendar"; }
+};

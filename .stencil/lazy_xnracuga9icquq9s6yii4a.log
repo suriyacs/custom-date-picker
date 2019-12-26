@@ -1,0 +1,11 @@
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { Host, h } from "@stencil/core";
+export const Calendar = class {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+    }
+    render() {
+        return (h(Host, null, h("div", { class: "mdp-container" }, "date-picker shown")));
+    }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:date-calendar"; }
+};

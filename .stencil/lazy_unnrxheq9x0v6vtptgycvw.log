@@ -1,0 +1,23 @@
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { h } from "@stencil/core";
+export const DatePicker = class {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+    }
+    componentDidLoad() {
+        window.addEventListener('click', this.addBackDrop);
+    }
+    componentDidUnload() {
+        window.removeEventListener('click', this.addBackDrop);
+    }
+    addBackDrop(event) {
+        console.log("Backdrop added", event);
+    }
+    toggleDatePicker(showDatePicker = true) {
+        this.showDatePicker = showDatePicker;
+    }
+    render() {
+        return (h("div", { class: "MyDatePicker" }, h("div", { class: "mdb-input", onClick: this.toggleDatePicker() })));
+    }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:date-picker"; }
+};

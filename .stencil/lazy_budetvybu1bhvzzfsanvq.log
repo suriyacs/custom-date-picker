@@ -1,0 +1,30 @@
+import { registerInstance as __stencil_registerInstance, getElement as __stencil_getElement } from "@stencil/core";
+import { h } from "@stencil/core";
+export const DatePicker = class {
+    constructor(hostRef) {
+        __stencil_registerInstance(this, hostRef);
+    }
+    componentDidLoad() {
+        this.currentElement = this.element;
+        window.addEventListener('click', this.addBackDrop);
+    }
+    componentDidUnload() {
+        window.removeEventListener('click', this.addBackDrop);
+    }
+    addBackDrop(event) {
+        console.log('this.element', this.element);
+        if (!this.element) {
+            console.log("Backdrop added", event.target, "currentElement", this.element);
+            this.showDatePicker = false;
+            event.stopPropagation();
+        }
+    }
+    toggleDatePicker(showDatePicker = true) {
+        this.showDatePicker = true;
+    }
+    render() {
+        return (h("div", { class: "MyDatePicker" }, h("div", { class: "mdb-input", onClick: () => { this.toggleDatePicker(); } }, h("input", { type: "date" })), this.showDatePicker ? (h("div", null, "date-picker shown")) : ''));
+    }
+    get element() { return __stencil_getElement(this); }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:date-picker"; }
+};
